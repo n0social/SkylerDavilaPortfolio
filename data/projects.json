@@ -1,0 +1,9 @@
+[
+  {
+    "id": "portfolio-shell",
+    "title": "Terminal Portfolio",
+    "description": "A retro terminal-style landing page built with vanilla JS and CSS, featuring keyboard navigation and animated CRT effects.",
+    "url": "projects/terminal-portfolio/index.html",
+    "featured": true
+  }
+]

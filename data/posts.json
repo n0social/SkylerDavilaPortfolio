@@ -1,0 +1,9 @@
+[
+  {
+    "id": "welcome-post",
+    "title": "Launching SkylerDavila.com",
+    "publishedAt": "2025-12-01T15:30:00.000Z",
+    "tags": ["announcement"],
+    "content": "## Hello world!\n\nThis is the first note on **SkylerDavila.com**. I'm building a home for my experiments, writing, and project drops.\n\n- Expect bite-sized learnings and prototypes.\n- Every post ships with source code or a demo.\n- Feedback is always welcome — reach out via GitHub or email.\n\nStay tuned for more soon."
+  }
+]

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Terminal Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #060808;
+        --fg: #0df87d;
+        --shadow: rgba(13, 248, 125, 0.25);
+        --terminal: "Fira Code", "JetBrains Mono", Consolas, "Courier New", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--terminal);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .screen {
+        border: 1px solid var(--fg);
+        box-shadow: 0 0 40px var(--shadow);
+        padding: 2.5rem;
+        max-width: 720px;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .screen::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 0%, rgba(13, 248, 125, 0.08) 50%, transparent 100%);
+        mix-blend-mode: screen;
+        pointer-events: none;
+      }
+
+      .prompt {
+        display: flex;
+        gap: 0.75rem;
+        align-items: baseline;
+        margin-bottom: 1rem;
+      }
+
+      .prompt::before {
+        content: "skyler@portfolio";
+        color: rgba(13, 248, 125, 0.6);
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 0.65em;
+        background: var(--fg);
+        animation: blink 1.2s steps(2, start) infinite;
+      }
+
+      @keyframes blink {
+        to {
+          visibility: hidden;
+        }
+      }
+
+      pre {
+        margin: 0;
+        white-space: pre-wrap;
+        font-size: 0.95rem;
+        line-height: 1.55;
+      }
+
+      .actions {
+        margin-top: 2rem;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      a.button {
+        border: 1px solid var(--fg);
+        color: var(--fg);
+        padding: 0.6rem 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.8rem;
+        text-decoration: none;
+        transition: background 150ms ease;
+      }
+
+      a.button:hover {
+        background: rgba(13, 248, 125, 0.15);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen" role="presentation">
+      <div class="prompt">
+        <span>$</span>
+        <span>cat about.txt</span>
+      </div>
+      <pre>
+Name: Skyler Davila
+Role: Front-end tinkerer building simple stories on the web.
+Focus: Accessible, minimal, intentional UX.
+Stack: HTML · CSS · JavaScript · Three.js curious
+      </pre>
+      <div class="prompt">
+        <span>$</span>
+        <span>ls projects</span>
+      </div>
+      <pre>
+1. web-audio-visualizer
+2. ai-storyteller
+3. sky-map-generator
+      </pre>
+      <div class="prompt">
+        <span>$</span>
+        <span>say hello</span><span class="cursor" aria-hidden="true"></span>
+      </div>
+      <div class="actions">
+        <a class="button" href="mailto:hello@skylerdavila.com">Email</a>
+        <a class="button" href="https://github.com/skylerv" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </body>
+</html>

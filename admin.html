@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin · Skyler Davila</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      #status-text[data-tone="success"] {
+        color: #9df5c0;
+      }
+      #status-text[data-tone="error"] {
+        color: #f98f8f;
+      }
+      #status-text[data-tone="muted"] {
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="login-overlay" class="login-overlay">
+      <div class="login-box">
+        <h1>Enter Admin</h1>
+        <form id="login-form">
+          <input type="password" name="password" placeholder="Password" autocomplete="current-password" required />
+          <button class="button" type="submit">Unlock</button>
+        </form>
+        <div id="login-error" class="alert"></div>
+        <p style="font-size: 0.75rem; color: var(--muted);">
+          Hint: update the admin password hash in <code>scripts/config.js</code>.
+        </p>
+      </div>
+    </div>
+
+    <div class="admin-wrapper hidden">
+      <div class="admin-panel">
+        <header style="display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;">
+          <h1>Skyler Admin Console</h1>
+          <button id="logout" class="button" type="button">Log out</button>
+        </header>
+        <p id="status-text" data-tone="muted" style="margin-bottom: 1.5rem;">Ready.</p>
+
+        <section>
+          <h2 class="section-heading">Posts</h2>
+          <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
+            New posts automatically receive a timestamp when saved.
+          </p>
+          <form id="post-form">
+            <div class="form-field">
+              <label for="post-title">Title</label>
+              <input id="post-title" name="title" type="text" placeholder="Post title" required />
+            </div>
+            <div class="form-field">
+              <label for="post-tags">Tags (comma separated)</label>
+              <input id="post-tags" name="tags" type="text" placeholder="design, research" />
+            </div>
+            <div class="form-field">
+              <label for="post-content">Markdown Content</label>
+              <textarea id="post-content" name="content" placeholder="Write your post in Markdown..."></textarea>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+              <button class="button" type="submit">Create Post</button>
+              <button class="button" type="reset">Clear</button>
+            </div>
+          </form>
+
+          <div class="preview-pane">
+            <h2>Live Preview</h2>
+            <article id="post-preview" class="post-card"></article>
+          </div>
+
+          <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button id="download-posts" class="button" type="button">Download posts.json</button>
+            <label class="button" style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+              Import posts.json
+              <input id="import-posts" type="file" accept="application/json" style="display: none;" />
+            </label>
+            <button id="commit-posts" class="button" type="button">Commit posts.json</button>
+          </div>
+
+          <table class="posts-table" style="margin-top: 2rem;">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Published</th>
+                <th>Tags</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="posts-table-body"></tbody>
+          </table>
+        </section>
+
+        <section style="margin-top: 3rem;">
+          <h2 class="section-heading">Projects</h2>
+          <form id="project-form">
+            <div class="form-field">
+              <label for="project-title">Title</label>
+              <input id="project-title" name="title" type="text" placeholder="Project title" required />
+            </div>
+            <div class="form-field">
+              <label for="project-description">Description</label>
+              <textarea id="project-description" name="description" placeholder="Short one-liner or summary" rows="4"></textarea>
+            </div>
+            <div class="form-field">
+              <label for="project-url">Project URL</label>
+              <input id="project-url" name="url" type="url" placeholder="projects/your-demo/index.html" />
+            </div>
+            <div class="form-field" style="flex-direction: row; align-items: center; gap: 0.75rem;">
+              <input id="project-featured" name="featured" type="checkbox" />
+              <label for="project-featured" style="margin: 0; text-transform: none; letter-spacing: 0;">Feature this project</label>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+              <button class="button" type="submit">Create Project</button>
+              <button class="button" type="reset">Clear</button>
+            </div>
+          </form>
+
+          <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button id="download-projects" class="button" type="button">Download projects.json</button>
+            <label class="button" style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+              Import projects.json
+              <input id="import-projects" type="file" accept="application/json" style="display: none;" />
+            </label>
+            <button id="commit-projects" class="button" type="button">Commit projects.json</button>
+          </div>
+
+          <table class="posts-table" style="margin-top: 2rem;">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>URL</th>
+                <th>Featured</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="projects-table-body"></tbody>
+          </table>
+        </section>
+
+        <section style="margin-top: 3rem;">
+          <h2 class="section-heading">GitHub Deploy</h2>
+          <p style="color: var(--muted); font-size: 0.9rem;">
+            Optional shortcut: provide a GitHub Personal Access Token (repo scope) to push
+            <code>data/posts.json</code> and <code>data/projects.json</code> directly to your repository.
+            These values never leave your browser session.
+          </p>
+          <div class="form-field">
+            <label for="github-token">GitHub Personal Access Token</label>
+            <input id="github-token" type="password" placeholder="ghp_..." autocomplete="off" />
+          </div>
+          <div class="form-field">
+            <label for="github-message">Commit Message</label>
+            <input id="github-message" type="text" placeholder="Update content" />
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" integrity="sha256-Kx5OjZ0SqnX+0Gooy2cuglRez2oJ6TP2PzefDs2fzGE=" crossorigin="anonymous"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/admin.js"></script>
+  </body>
+</html>
